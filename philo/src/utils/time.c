@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 16:58:46 by geibo             #+#    #+#             */
-/*   Updated: 2024/07/18 17:52:55 by geibo            ###   ########.fr       */
+/*   Created: 2024/07/18 15:25:18 by geibo             #+#    #+#             */
+/*   Updated: 2024/07/18 17:44:38 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+size_t	convert_to_ms(struct timeval time)
 {
-	t_table	*table;
-
-	arg_check(argc, argv);
-	table = init_philo(table, argc, argv);
-	set_up_tables(table);
-	table->philos = set_up_philos(table);
-	debug(table);
-	manage_threads(table->philos, table);
-	free_mutex(table);
-	free_table(table);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
+
+size_t	get_current_ms_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (convert_to_ms(time));
+}
+
+size_t	get_elapsed_time(size_t start_time)
+{
+	return (get_current_ms_time() - start_time);
+}
+
+// void	usleep_ms(size_t time)
+// {
+
+// }

@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/07/17 22:25:49 by geibo            ###   ########.fr       */
+/*   Updated: 2024/07/18 18:25:20 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_philo
 	pthread_t			thread;
 	t_table				*table;
 	unsigned long long	total_meals;
+	unsigned long long	last_meal_time;
 }	t_philo;
 
 typedef struct s_table
@@ -48,6 +49,7 @@ typedef struct s_table
 	unsigned int		nb_philos;
 	unsigned int		nb_meals;
 	size_t				*forks;
+	size_t				time;
 }	t_table;
 
 // libft
@@ -67,9 +69,29 @@ void	free_table(t_table *table);
 void	free_mutex(t_table *table);
 
 // philo_utils
-bool	initialize_mutex(pthread_mutex_t **mutex, t_table *table);
+static bool	initialize_mutex(pthread_mutex_t **mutex, t_table *table);
 static	pthread_mutex_t	*create_mutex(size_t size);
 void	set_up_tables(t_table *table);
 void	set_up_forks(t_table *table);
 void	free_mutex(t_table *table);
+
+//philo
+void	*philo_routine(void *arg);
+void	create_threads(t_philo **philo, t_table *table);
+void	join_threads(t_philo **philo, t_table *table);
+void	manage_threads(t_philo **philo, t_table *table);
+
+// time
+size_t	get_current_ms_time(void);
+size_t	convert_to_ms(struct timeval time);
+size_t	get_elapsed_time(size_t start_time);
+
+//philo routine
+void	grab_forks(t_philo *philo, t_table *table);
+void	handle_eat(t_philo *philo, t_table *table);
+void	release_forks(t_philo *philo, t_table *table);
+void	sleeping(t_philo *philo, t_table *table);
+void	die(t_philo *philo, t_table *table);
+void	thinking(t_philo *philo, t_table *table);
+
 #endif

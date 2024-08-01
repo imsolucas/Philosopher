@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:41:04 by geibo             #+#    #+#             */
-/*   Updated: 2024/07/17 22:16:04 by geibo            ###   ########.fr       */
+/*   Updated: 2024/07/18 15:44:45 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,17 @@ void	error_exit(char *str)
 
 void	debug(t_table *table)
 {
+	size_t	time;
+
 	printf("nb_philos: %d\n", table->nb_philos);
 	printf("time_to_die: %d\n", table->time_to_die);
 	printf("time_to_eat: %d\n", table->time_to_eat);
 	printf("time_to_sleep: %d\n", table->time_to_sleep);
 	printf("nb_meals: %d\n", table->nb_meals);
 	printf("forks: %p\n", table->forks);
+	time = get_current_ms_time();
+	printf("time: %zu\n", time);
+	printf("times: %zu\n", table->time);
 }
 
 void	free_table(t_table *table)
