@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 01:58:48 by geibo             #+#    #+#             */
-/*   Updated: 2024/07/18 18:44:02 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/16 23:59:54 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,25 @@
 
 void	grab_forks(t_philo *philo, t_table *table)
 {
+	if (table->nb_philos == 1)
+	{
+		printf("%llu %u has taken a fork\n", get_elapsed_time(table->time), philo->id);
+		pthread_exit(0);
+	}
 	pthread_mutex_lock(&table->forks_mutex[philo->id]);
 	printf("%llu %u has taken a fork\n", get_elapsed_time(table->time), philo->id);
 	pthread_mutex_lock(&table->forks_mutex[(philo->id + 1) % philo->table->nb_philos]);
 	printf("%llu %u has taken a fork\n", get_elapsed_time(table->time), philo->id);
+	pthread_mutex_lock(philo->table->stop_print_lock);
 	table->forks[philo->id] = 0;
 	table->forks[(philo->id + 1) % philo->table->nb_philos] = 0;
+	if (philo->table->stop_printing)
+	{
+		pthread_mutex_unlock(philo->table->stop_print_lock);
+		release_forks(philo, table);
+		pthread_exit(0);
+	}
+	pthread_mutex_unlock(philo->table->stop_print_lock);
 }
 
 void	handle_eat(t_philo *philo, t_table *table)

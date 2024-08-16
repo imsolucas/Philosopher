@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 12:35:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/01 18:15:50 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/17 00:10:36 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ bool	check_last_meal_time(t_table *table, t_philo **philo)
 		if (el_last_meal_time > table->time_to_die)
 		{
 			printf("%zu %zu died\n", el_last_meal_time, philo[i]->id);
+			philo[i]->table->stop_printing = true;
 			return (true);
 		}
 		i++;
@@ -39,12 +40,64 @@ bool	check_last_meal_time(t_table *table, t_philo **philo)
 	return (false);
 }
 
+bool	check_exit_condition(t_philo *philo)
+{
+	size_t	total_meal_count;
+	size_t	nb_meals;
+	bool	stop_printing;
+
+	nb_meals = philo->table->nb_meals;
+	pthread_mutex_lock(&philo->table->eating_counter_lock[philo->id]);
+	total_meal_count = philo->total_meals;
+	pthread_mutex_unlock(&philo->table->eating_counter_lock[philo->id]);
+	pthread_mutex_lock(philo->table->stop_print_lock);
+	stop_printing = philo->table->stop_printing;
+	pthread_mutex_unlock(philo->table->stop_print_lock);
+	if (stop_printing)
+		return (true);
+	return (nb_meals != -1 && total_meal_count >= nb_meals);
+}
+
+bool	check_eating_counter(t_philo *philo)
+{
+	size_t	i;
+	size_t	counter;
+	size_t	nb_philos;
+
+	i = 0;
+	counter = 0;
+	nb_philos = philo->table->nb_philos;
+	while (i < nb_philos)
+	{
+		if (check_exit_condition(philo))
+			counter++;
+		i++;
+	}
+	if (counter == nb_philos)
+	{
+		pthread_mutex_lock(philo->table->stop_print_lock);
+		philo->table->stop_printing = true;
+		pthread_mutex_unlock(philo->table->stop_print_lock);
+		return (true);
+	}
+	return (false);
+}
+
 void	monitor_threads(t_philo **philo, t_table *table)
 {
+	size_t	i;
+
 	while (1)
 	{
-		if (check_last_meal_time(table, philo))
-			break ;
-		usleep(50);
+		i = 0;
+		while (i < table->nb_philos)
+		{
+			if (check_last_meal_time(table, philo))
+				return ;
+			else if (check_eating_counter(philo[i]))
+				return ;
+			usleep(50);
+			i++;
+		}
 	}
 }

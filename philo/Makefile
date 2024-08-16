@@ -6,7 +6,7 @@
 #    By: geibo <geibo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 06:55:38 by codespace         #+#    #+#              #
-#    Updated: 2024/07/18 18:03:18 by geibo            ###   ########.fr        #
+#    Updated: 2024/08/17 00:12:11 by geibo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ MAIN_DIR = main
 UTILS_DIR = utils
 LIBFT_DIR = libft
 SRCS_FILES = $(addprefix $(MAIN_DIR)/, main.c) \
-			 $(addprefix $(UTILS_DIR)/, arg_check.c debug.c init_philo.c philo_utils.c philo.c time.c philo_routine.c) \
+			 $(addprefix $(UTILS_DIR)/, arg_check.c debug.c init_philo.c philo_utils.c philo.c time.c philo_routine.c monitor_threads.c) \
 			 $(addprefix $(LIBFT_DIR)/, ft_atoi.c) \
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SRCS_FILES))

@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/07/18 18:25:20 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/17 00:11:14 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_table
 	pthread_mutex_t		*stop_print_lock;
 	pthread_mutex_t		*die_lock;
 	pthread_mutex_t		*eating_counter_lock;
-	bool				*stop;
+	bool				*stop_printing;
 	struct timeval		start_time;
 	unsigned int		nb_philos;
 	unsigned int		nb_meals;
@@ -93,5 +93,8 @@ void	release_forks(t_philo *philo, t_table *table);
 void	sleeping(t_philo *philo, t_table *table);
 void	die(t_philo *philo, t_table *table);
 void	thinking(t_philo *philo, t_table *table);
+
+// monitor_threads
+void	monitor_threads(t_philo **philo, t_table *table);
 
 #endif
