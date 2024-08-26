@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:41:04 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/17 00:00:11 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/22 01:15:04 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	free_mutex(t_table *table)
 	free(table->forks_mutex);
 	free(table->last_meal_time_lock);
 	free(table->stop_print_lock);
-	free(table->die_lock);
+	free(table->log_mutex);
 	free(table->eating_counter_lock);
 }

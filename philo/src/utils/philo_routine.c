@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 01:58:48 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/16 23:59:54 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/26 15:26:46 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_eat(t_philo *philo, t_table *table)
 	pthread_mutex_lock(&table->eating_counter_lock[philo->id]);
 	philo->total_meals++;
 	pthread_mutex_unlock(&table->eating_counter_lock[philo->id]);
-	usleep(table->time_to_eat * 1000);
+	custom_usleep(philo->table->time_to_eat);
 }
 
 void	release_forks(t_philo *philo, t_table *table)
@@ -59,18 +59,21 @@ void	sleeping(t_philo *philo, t_table *table)
 {
 	size_t	time_to_sleep;
 	size_t	time_to_die;
+	size_t	sleep_duration;
 	
 	time_to_sleep = table->time_to_sleep;
 	time_to_die = table->time_to_die;
 	if (time_to_sleep > time_to_die)
 	{
+		sleep_duration = table->time_to_die;
 		printf("%llu %u sleeping\n", get_elapsed_time(table->time), philo->id);
-		usleep(table->time_to_die * 1000);
+		custom_usleep(sleep_duration);
 	}
 	else
 	{
+		sleep_duration = table->time_to_sleep;
 		printf("%llu %u is sleeping\n", get_elapsed_time(table->time), philo->id);
-		usleep(table->time_to_sleep * 1000);
+		custom_usleep(sleep_duration);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:35:12 by geibo             #+#    #+#             */
-/*   Updated: 2024/07/18 17:56:54 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/22 01:15:04 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_table	*set_zero(t_table *table)
 	table->forks_mutex = NULL;
 	table->last_meal_time_lock = NULL;
 	table->stop_print_lock = NULL;
-	table->die_lock = NULL;
+	table->log_mutex = NULL;
 	table->eating_counter_lock = NULL;
 	return (table);
 }
@@ -80,7 +80,6 @@ t_philo	**set_up_philos(t_table *table)
 		philos[i]->thread = 0;
 		assign_forks(philos[i]);
 		philos[i]->table = table;
-		// printf("Philosopher %d has forks %d and %d\n", philos[i]->id, philos[i]->forks[0], philos[i]->forks[1]);
 		i++;
 	}
 	return (philos);

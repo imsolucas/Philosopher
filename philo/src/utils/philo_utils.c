@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 02:04:48 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/16 23:59:43 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/22 07:18:00 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	set_up_tables(t_table *table)
 	table->forks_mutex = create_mutex(table->nb_philos);
 	table->last_meal_time_lock = create_mutex(table->nb_philos);
 	table->stop_print_lock = create_mutex(1);
-	table->die_lock = create_mutex(1);
+	table->log_mutex = create_mutex(1);
 	table->eating_counter_lock = create_mutex(table->nb_philos);
 	table->stop_printing = false;
 }
@@ -54,3 +54,41 @@ static	pthread_mutex_t	*create_mutex(size_t size)
 	return (mutex);
 }
 
+static void	print_activity(t_philo *philo, t_table *table,
+	char *activity, size_t start_time)
+{
+	if (ft_strcmp(activity, "fork") == 0)
+	{
+		printf("%llu %u has taken a fork\n", 
+			get_elapsed_time(start_time),
+			philo->id
+			);
+	}
+	else if (ft_strcmp(activity, "died") == 0)
+	{
+		printf("%llu %u died\n",
+			get_elapsed_time(start_time),
+			philo->id
+			);
+		table->stop_printing = true;
+	}
+	else
+	{
+		printf("%llu %u %s\n",
+			get_elapsed_time(start_time),
+			philo->id,
+			activity
+			);
+	}
+}
+
+void	write_activity(t_philo *philo, t_table *table, 
+	char *activity, size_t start_time)
+{
+	pthread_mutex_lock(table->log_mutex);
+	pthread_mutex_lock(table->stop_print_lock);
+	if (!table->stop_printing)
+		print_activity(philo, table, activity, start_time);
+	pthread_mutex_unlock(table->stop_print_lock);
+	pthread_mutex_unlock(table->log_mutex);
+}

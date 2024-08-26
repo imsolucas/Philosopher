@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 22:17:20 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/17 01:11:16 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/17 13:43:20 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	table = philo->table;
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		custom_usleep(100);
 	while (1)
 	{
 		grab_forks(philo, table);

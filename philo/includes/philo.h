@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/17 00:11:14 by geibo            ###   ########.fr       */
+/*   Updated: 2024/08/22 07:17:51 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_table
 	pthread_mutex_t		*last_meal_time_lock;
 	pthread_mutex_t		*forks_mutex;
 	pthread_mutex_t		*stop_print_lock;
-	pthread_mutex_t		*die_lock;
+	pthread_mutex_t		*log_mutex;
 	pthread_mutex_t		*eating_counter_lock;
 	bool				*stop_printing;
 	struct timeval		start_time;
@@ -54,6 +54,7 @@ typedef struct s_table
 
 // libft
 int		ft_atoi(const char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 
 // utils
 void	arg_check(int argc, char **argv);
@@ -69,11 +70,11 @@ void	free_table(t_table *table);
 void	free_mutex(t_table *table);
 
 // philo_utils
-static bool	initialize_mutex(pthread_mutex_t **mutex, t_table *table);
-static	pthread_mutex_t	*create_mutex(size_t size);
-void	set_up_tables(t_table *table);
-void	set_up_forks(t_table *table);
-void	free_mutex(t_table *table);
+static		pthread_mutex_t	*create_mutex(size_t size);
+void		set_up_tables(t_table *table);
+void		set_up_forks(t_table *table);
+static void	print_activity(t_philo *philo, t_table *table, char *activity, size_t start_time);
+void		write_activity(t_philo *philo, t_table *table, char *activity, size_t start_time);
 
 //philo
 void	*philo_routine(void *arg);
@@ -85,6 +86,7 @@ void	manage_threads(t_philo **philo, t_table *table);
 size_t	get_current_ms_time(void);
 size_t	convert_to_ms(struct timeval time);
 size_t	get_elapsed_time(size_t start_time);
+void	custom_usleep(size_t activity_time);
 
 //philo routine
 void	grab_forks(t_philo *philo, t_table *table);
