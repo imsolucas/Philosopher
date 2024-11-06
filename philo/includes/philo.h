@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 00:49:25 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/06 17:30:52 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_table
 	pthread_mutex_t	*print_mutex;
 	bool			*someone_died;
 	struct timeval	start_time;
-	pthread_mutex_t	*threads;
+	pthread_t	*threads;
 }					t_table;
 
 typedef struct s_philo

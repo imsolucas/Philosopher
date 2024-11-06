@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor_threads.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 23:03:35 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 00:16:02 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/06 17:31:16 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*monitor_thread(void *arg)
 	while (1)
 	{
 		i = 0;
-		while (i < philo[0].table->num_of_philos)
+		while (i < (size_t)philo[0].table->num_of_philos)
 		{
 			current_time = get_time();
 			if (check_death(philo, i, current_time))

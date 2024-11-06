@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: geibo <geibo@student.42.fr>                +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 06:55:38 by codespace         #+#    #+#              #
-#    Updated: 2024/11/07 00:51:07 by geibo            ###   ########.fr        #
+#    Updated: 2024/11/06 17:29:30 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -w -pthread
+CFLAGS = -Wall -Werror -Wextra -pthread
 INCLUDES = -Iincludes
 
 # Source files
