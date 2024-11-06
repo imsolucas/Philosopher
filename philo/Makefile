@@ -6,13 +6,13 @@
 #    By: geibo <geibo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 06:55:38 by codespace         #+#    #+#              #
-#    Updated: 2024/08/22 07:18:26 by geibo            ###   ########.fr        #
+#    Updated: 2024/11/07 00:51:07 by geibo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler
 CC = gcc
-CFLAGS = -ggdb -Wall -Werror -Wextra  -w
+CFLAGS = -Wall -Werror -Wextra -w -pthread
 INCLUDES = -Iincludes
 
 # Source files
@@ -20,15 +20,17 @@ SRCS_DIR = src
 MAIN_DIR = main
 UTILS_DIR = utils
 LIBFT_DIR = libft
+PHILO_UTIL = philo_util
 SRCS_FILES = $(addprefix $(MAIN_DIR)/, main.c) \
-			 $(addprefix $(UTILS_DIR)/, arg_check.c debug.c init_philo.c philo_utils.c philo.c time.c philo_routine.c monitor_threads.c) \
+			 $(addprefix $(UTILS_DIR)/, arg_check.c free.c init.c init_utils.c print_status.c time.c) \
 			 $(addprefix $(LIBFT_DIR)/, ft_atoi.c ft_strcmp.c) \
+			 $(addprefix $(PHILO_UTIL)/, fork.c handle_eat.c handle_sleep.c manage_threads.c monitor_threads.c philo_routine.c)
 
 SRCS = $(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
 
 # Object files
 OBJS_DIR = objs
-OBJS_DIRS = $(OBJS_DIR) $(OBJS_DIR)/$(MAIN_DIR) $(OBJS_DIR)/$(UTILS_DIR) $(OBJS_DIR)/$(LIBFT_DIR)
+OBJS_DIRS = $(OBJS_DIR) $(OBJS_DIR)/$(MAIN_DIR) $(OBJS_DIR)/$(UTILS_DIR) $(OBJS_DIR)/$(LIBFT_DIR) $(OBJS_DIR)/$(PHILO_UTIL)
 OBJS_FILES = $(patsubst %.c,%.o,$(SRCS_FILES))
 OBJS = $(addprefix $(OBJS_DIR)/,$(OBJS_FILES))
 

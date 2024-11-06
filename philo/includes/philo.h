@@ -6,97 +6,77 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/22 07:17:51 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/07 00:49:25 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <pthread.h>
 # include <limits.h>
-# include <unistd.h>
+# include <pthread.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
-# include <stdbool.h>
-
-typedef struct s_table	t_table;
-
-typedef struct s_philo
-{
-	unsigned int		id;
-	unsigned int		forks[2];
-	pthread_t			thread;
-	t_table				*table;
-	unsigned long long	total_meals;
-	unsigned long long	last_meal_time;
-}	t_philo;
+# include <unistd.h>
 
 typedef struct s_table
 {
-	t_philo				**philos;
-	unsigned long long	time_to_die;
-	unsigned long long	time_to_eat;
-	unsigned long long	time_to_sleep;
-	pthread_mutex_t		*last_meal_time_lock;
-	pthread_mutex_t		*forks_mutex;
-	pthread_mutex_t		*stop_print_lock;
-	pthread_mutex_t		*log_mutex;
-	pthread_mutex_t		*eating_counter_lock;
-	bool				*stop_printing;
-	struct timeval		start_time;
-	unsigned int		nb_philos;
-	unsigned int		nb_meals;
-	size_t				*forks;
-	size_t				time;
-}	t_table;
+	int				num_of_philos;
+	int				num_of_meals;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	pthread_mutex_t	*print_mutex;
+	bool			*someone_died;
+	struct timeval	start_time;
+	pthread_mutex_t	*threads;
+}					t_table;
+
+typedef struct s_philo
+{
+	int				id;
+	int				meals_eaten;
+	long long		last_meal_time;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*forks;
+	t_table			*table;
+}					t_philo;
 
 // libft
-int		ft_atoi(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
+int					ft_atoi(const char *str);
+int					ft_strcmp(const char *s1, const char *s2);
 
 // utils
-void	arg_check(int argc, char **argv);
-t_table	*set_zero(t_table *table);
-t_table	*init_philo(t_table *table, int argc, char **argv);
-t_philo	**set_up_philos(t_table *table);
-static void	assign_forks(t_philo *philo);
+void				arg_check(int argc);
+void				set_zero(t_table *table);
+t_table				*set_up_table(int argc, char **argv);
+long long			get_time(void);
+t_philo				*init_philo(t_table *table);
+void				sitting(t_philo *philos);
+void				precise_sleep(int ms);
+void				print_status(t_philo *philo, char *status);
+void				clean_up_tables(t_philo *philos, t_table *table);
+void				init_mutexes(t_philo *philos, pthread_mutex_t *forks,
+						pthread_mutex_t print_mutex);
+void				assign_forks(t_philo *philos, pthread_mutex_t *forks,
+						pthread_mutex_t print_mutex);
+t_table				*alloc_table(void);
+void				init_table_values(t_table *table, int argc, char **argv);
 
-// debug
-void	error_exit(char *str);
-void	debug(t_table *table);
-void	free_table(t_table *table);
-void	free_mutex(t_table *table);
-
-// philo_utils
-static		pthread_mutex_t	*create_mutex(size_t size);
-void		set_up_tables(t_table *table);
-void		set_up_forks(t_table *table);
-static void	print_activity(t_philo *philo, t_table *table, char *activity, size_t start_time);
-void		write_activity(t_philo *philo, t_table *table, char *activity, size_t start_time);
-
-//philo
-void	*philo_routine(void *arg);
-void	create_threads(t_philo **philo, t_table *table);
-void	join_threads(t_philo **philo, t_table *table);
-void	manage_threads(t_philo **philo, t_table *table);
-
-// time
-size_t	get_current_ms_time(void);
-size_t	convert_to_ms(struct timeval time);
-size_t	get_elapsed_time(size_t start_time);
-void	custom_usleep(size_t activity_time);
-
-//philo routine
-void	grab_forks(t_philo *philo, t_table *table);
-void	handle_eat(t_philo *philo, t_table *table);
-void	release_forks(t_philo *philo, t_table *table);
-void	sleeping(t_philo *philo, t_table *table);
-void	die(t_philo *philo, t_table *table);
-void	thinking(t_philo *philo, t_table *table);
-
-// monitor_threads
-void	monitor_threads(t_philo **philo, t_table *table);
+// philo_util
+void				create_threads(t_philo *philo, pthread_t *threads);
+void				join_threads(t_philo *philo, pthread_t *threads,
+						pthread_t monitor_threads);
+void				manage_threads(t_philo *philo);
+void				*philo_routine(void *arg);
+void				handle_sleep(t_philo *philo);
+void				handle_think(t_philo *philo);
+void				handle_eat(t_philo *philo);
+void				grab_forks(t_philo *philo);
+void				release_forks(t_philo *philo);
+void				*monitor_thread(void *arg);
 
 #endif

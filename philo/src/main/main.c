@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/30 16:58:46 by geibo             #+#    #+#             */
-/*   Updated: 2024/08/17 00:48:21 by geibo            ###   ########.fr       */
+/*   Created: 2024/11/05 16:39:27 by geibo             #+#    #+#             */
+/*   Updated: 2024/11/07 00:48:58 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,27 @@
 int	main(int argc, char **argv)
 {
 	t_table	*table;
+	t_philo	*philos;
 
-	arg_check(argc, argv);
-	table = init_philo(table, argc, argv);
-	set_up_tables(table);
-	table->philos = set_up_philos(table);
-	manage_threads(table->philos, table);
-	free_mutex(table);
-	free_table(table);
+	arg_check(argc);
+	table = set_up_table(argc, argv);
+	if (table->num_of_philos < 1 || table->num_of_philos > 200) {
+        printf("Error: Number of philosophers must be between 1 and 200\n");
+		free(table->someone_died);
+		free(table);
+        return 1;
+    }
+	if (!table)
+		return (1);
+	philos = init_philo(table);
+	if (!philos)
+	{
+		free(table->someone_died);
+		free(table);
+		return (1);
+	}
+	sitting(philos);
+	manage_threads(philos);
+	clean_up_tables(philos, table);
+	return (0);
 }
