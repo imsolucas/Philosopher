@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 23:19:45 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 01:26:43 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 01:43:32 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	clean_up_tables(t_philo *philos, t_table *table)
 
 	i = 0;
 	pthread_mutex_destroy(table->print_mutex);
+	pthread_mutex_destroy(table->last_meal_mutex);
+	pthread_mutex_destroy(table->someone_died_mutex);
 	while (i < (size_t)philos->table->num_of_philos)
 	{
 		pthread_mutex_destroy(&philos[i].forks[i]);
