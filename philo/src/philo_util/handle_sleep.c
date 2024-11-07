@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 23:01:00 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 02:05:54 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 02:21:43 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	handle_sleep(t_philo *philo)
 	if (sleep_end_time > sleep_die_time)
 	{
 		sleep_duration = philo->table->time_to_die;
-		printf("time to die: %lld\n", philo->table->time_to_die);
 		precise_sleep(sleep_duration);
 	}
 	else
