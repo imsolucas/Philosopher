@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:00:49 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 01:53:34 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 02:25:06 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ static void	philo_actions(t_philo *philo)
 	grab_forks(philo);
 	handle_eat(philo);
 	release_forks(philo);
-	pthread_mutex_lock(philo->table->print_mutex);
-	// if (*philo->table->someone_died)
-	// {
-	// 	pthread_mutex_unlock(philo->table->print_mutex);
-	// 	return ;
-	// }
-	pthread_mutex_unlock(philo->table->print_mutex);
 	handle_sleep(philo);
 	handle_death(philo);
 	handle_think(philo);

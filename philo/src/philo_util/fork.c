@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:50:44 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 13:59:32 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 02:29:56 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	grab_forks(t_philo *philo)
 	print_status(philo, "has taken a fork");
 	pthread_mutex_lock(second_fork);
 	print_status(philo, "has taken a fork");
+	if (*philo->table->someone_died)
+	{
+		pthread_mutex_unlock(first_fork);
+		pthread_mutex_unlock(second_fork);
+		pthread_exit(0);
+	}
 }
 
 void	release_forks(t_philo *philo)
