@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 23:55:47 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 03:13:24 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 04:24:12 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	monitor_thread(void *arg)
 	{
 		i = 0;
 		count = 0;
+		if (philo[0].table->num_of_philos == 1)
+			return ;
 		while (i < (size_t)philo[0].table->num_of_philos)
 		{
 			pthread_mutex_lock(&philo[0].table->last_meal_mutex[i]);
@@ -55,9 +57,10 @@ void	monitor_thread(void *arg)
 		if (count == philo[0].table->num_of_philos)
 		{
 			pthread_mutex_lock(philo[0].table->print_mutex);
-			philo[0].table->someone_died = true;
+			*philo[0].table->someone_died = true;
 			pthread_mutex_unlock(philo[0].table->print_mutex);
 			return ;
 		}
+		usleep(50);
 	}
 }
