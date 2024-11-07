@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 21:22:10 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 01:39:23 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 02:01:11 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ void	precise_sleep(int ms)
 
 	start = get_time();
 	while (get_time() - start < ms)
-		usleep(100);
+		usleep(50);
 }

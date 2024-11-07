@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 01:24:42 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 01:53:13 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void				manage_threads(t_philo *philo);
 void				*philo_routine(void *arg);
 void				handle_sleep(t_philo *philo);
 void				handle_think(t_philo *philo);
+void				handle_death(t_philo *philo);
 void				handle_eat(t_philo *philo);
 void				grab_forks(t_philo *philo);
 void				release_forks(t_philo *philo);
