@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 01:53:13 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 02:46:54 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_table
 	int				time_to_sleep;
 	pthread_mutex_t	*print_mutex;
 	pthread_mutex_t	*last_meal_mutex;
-	pthread_mutex_t	*someone_died_mutex;
+	pthread_mutex_t	*meals_eaten_mutex;
 	bool			*someone_died;
 	struct timeval	start_time;
 	pthread_t		*threads;

@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 23:55:47 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 01:41:23 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 03:13:24 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@ void	monitor_thread(void *arg)
 	size_t		i;
 	long long	last_meal_time;
 	long long	time_since_last_meal;
+	long long	meals_eaten;
+	long long	count;
+	long long	num_of_time_to_eat;
 
 	philo = (t_philo *)arg;
-	i = 0;
 	while (1)
 	{
+		i = 0;
+		count = 0;
 		while (i < (size_t)philo[0].table->num_of_philos)
 		{
 			pthread_mutex_lock(&philo[0].table->last_meal_mutex[i]);
@@ -35,6 +39,25 @@ void	monitor_thread(void *arg)
 				print_status(&philo[i], "died");
 				return ;
 			}
+			i++;
+		}
+		i = 0;
+		num_of_time_to_eat = philo[0].table->num_of_meals;
+		while (i < (size_t)philo[0].table->num_of_philos)
+		{
+			pthread_mutex_lock(philo[0].table->meals_eaten_mutex);
+			meals_eaten = philo[i].meals_eaten;
+			pthread_mutex_unlock(philo[0].table->meals_eaten_mutex);
+			if (num_of_time_to_eat != 0 && meals_eaten >= philo[0].table->num_of_meals)
+				count++;
+			i++;
+		}
+		if (count == philo[0].table->num_of_philos)
+		{
+			pthread_mutex_lock(philo[0].table->print_mutex);
+			philo[0].table->someone_died = true;
+			pthread_mutex_unlock(philo[0].table->print_mutex);
+			return ;
 		}
 	}
 }

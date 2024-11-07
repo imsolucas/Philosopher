@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:39:36 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 01:29:43 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 03:16:57 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_status(t_philo *philo, char *status)
 {
 	pthread_mutex_lock(philo->table->print_mutex);
-	if (!*philo->table->someone_died)
+	if (!(*philo->table->someone_died))
 	{
 		printf("%lld %d %s\n", get_elapsed_time(philo[0].table->start_time),
 			philo->id, status);
