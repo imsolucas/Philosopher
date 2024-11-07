@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:57:55 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 23:57:12 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 01:14:27 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	handle_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->print_mutex);
+	// pthread_mutex_lock(philo->table->print_mutex);
 	// if (!*philo->table->someone_died)
 	// {
-		philo->last_meal_time = get_time();
-		printf("%lld %d is eating\n", philo->last_meal_time
-			- ((philo->table->start_time.tv_sec * 1000)
-				+ (philo->table->start_time.tv_usec / 1000)), philo->id);
-		philo->meals_eaten++;
-		pthread_mutex_unlock(philo->table->print_mutex);
-		precise_sleep(philo->table->time_to_eat);
+	pthread_mutex_lock(&philo->table->last_meal_mutex[philo->id - 1]);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->table->last_meal_mutex[philo->id - 1]);
+	print_status(philo, "is eating");
+	philo->meals_eaten++;
+	// pthread_mutex_unlock(philo->table->print_mutex);
+	precise_sleep(philo->table->time_to_eat);
 	// }
 	// else
 	// {

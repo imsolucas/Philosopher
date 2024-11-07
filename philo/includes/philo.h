@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 13:58:14 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 01:24:42 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_table
 	int				time_to_eat;
 	int				time_to_sleep;
 	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*last_meal_mutex;
+	pthread_mutex_t	*someone_died_mutex;
 	bool			*someone_died;
 	struct timeval	start_time;
 	pthread_t		*threads;
@@ -75,6 +77,7 @@ void				handle_think(t_philo *philo);
 void				handle_eat(t_philo *philo);
 void				grab_forks(t_philo *philo);
 void				release_forks(t_philo *philo);
-void				*monitor_thread(void *arg);
+void				monitor_thread(void *arg);
+long long			get_elapsed_time(struct timeval start);
 
 #endif

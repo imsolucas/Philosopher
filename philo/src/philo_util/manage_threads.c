@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 21:53:45 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 23:59:28 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 00:28:03 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	manage_threads(t_philo *philo)
 		pthread_exit(NULL);
 	}
 	philo->table->threads = threads;
+	gettimeofday(&philo->table->start_time, NULL);
 	create_threads(philo, threads);
-	// monitor_thread(philo);
+	monitor_thread(philo);
 	while (i < (size_t)philo->table->num_of_philos)
 	{
 		pthread_join(threads[i], NULL);

@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:39:36 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 13:58:25 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 01:29:43 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	print_status(t_philo *philo, char *status)
 	pthread_mutex_lock(philo->table->print_mutex);
 	if (!*philo->table->someone_died)
 	{
-		printf("%lld %d %s\n", get_time() - ((philo->table->start_time.tv_sec
-					* 1000) + (philo->table->start_time.tv_usec / 1000)),
+		printf("%lld %d %s\n", get_elapsed_time(philo[0].table->start_time),
 			philo->id, status);
 	}
+	if (ft_strcmp(status, "died") == 0)
+		*philo->table->someone_died = true;
 	pthread_mutex_unlock(philo->table->print_mutex);
 }

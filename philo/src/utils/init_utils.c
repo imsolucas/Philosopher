@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 00:11:48 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 13:58:04 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 00:29:26 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,16 @@ void	assign_forks(t_philo *philos, pthread_mutex_t *forks,
 
 void	init_table_values(t_table *table, int argc, char **argv)
 {
-	struct timeval	start_time;
+	// struct timeval	start_time;
 
-	gettimeofday(&start_time, NULL);
+	// gettimeofday(&start_time, NULL);
 	table->num_of_philos = ft_atoi(argv[1]);
 	table->time_to_die = ft_atoi(argv[2]);
 	table->time_to_eat = ft_atoi(argv[3]);
 	table->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		table->num_of_meals = ft_atoi(argv[5]);
-	table->start_time = start_time;
+	table->start_time = (struct timeval){0};
 	if (table->time_to_die <= 60 || table->time_to_eat <= 60
 		|| table->time_to_sleep <= 60)
 	{

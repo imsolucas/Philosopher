@@ -6,13 +6,13 @@
 #    By: geibo <geibo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 06:55:38 by codespace         #+#    #+#              #
-#    Updated: 2024/11/07 23:59:46 by geibo            ###   ########.fr        #
+#    Updated: 2024/11/08 01:32:57 by geibo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread -w #-O2 -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -pthread -w -O2 #-fsanitize=address
 INCLUDES = -Iincludes
 
 # Source files
