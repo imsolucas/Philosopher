@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:00:49 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 13:59:40 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/07 23:58:10 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ static void	philo_actions(t_philo *philo)
 	handle_eat(philo);
 	release_forks(philo);
 	pthread_mutex_lock(philo->table->print_mutex);
-	if (*philo->table->someone_died)
-	{
-		pthread_mutex_unlock(philo->table->print_mutex);
-		return ;
-	}
+	// if (*philo->table->someone_died)
+	// {
+	// 	pthread_mutex_unlock(philo->table->print_mutex);
+	// 	return ;
+	// }
 	pthread_mutex_unlock(philo->table->print_mutex);
 	handle_sleep(philo);
 	handle_think(philo);
@@ -60,7 +60,7 @@ void	*philo_routine(void *arg)
 		return (NULL);
 	if (philo->id % 2 == 0)
 		usleep(1000);
-	while (should_continue_routine(philo))
+	while (1)
 		philo_actions(philo);
 	return (NULL);
 }
