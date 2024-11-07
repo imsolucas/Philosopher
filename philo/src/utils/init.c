@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 21:16:12 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 00:37:42 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/07 12:48:37 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,23 @@ t_philo	*init_philo(t_table *table)
 	return (philos);
 }
 
-void	sitting(t_philo *philos)
+void    sitting(t_philo *philos)
 {
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	print_mutex;
+    pthread_mutex_t  *forks;
+    pthread_mutex_t  *print_mutex;  // Change to pointer
 
-	forks = malloc(sizeof(pthread_mutex_t) * philos->table->num_of_philos);
-	if (!forks)
-	{
-		printf("Error: malloc failed\n");
-		free(philos[0].table);
-		free(philos);
-		exit(-1);
-	}
-	init_mutexes(philos, forks, print_mutex);
-	assign_forks(philos, forks, print_mutex);
+    forks = malloc(sizeof(pthread_mutex_t) * philos->table->num_of_philos);
+    print_mutex = malloc(sizeof(pthread_mutex_t));  // Allocate on heap
+    if (!forks || !print_mutex)
+    {
+        printf("Error: malloc failed\n");
+        free(forks);
+        free(print_mutex);
+        free(philos[0].table);
+        free(philos);
+        exit(-1);
+    }
+    init_mutexes(philos, forks, print_mutex);
+    assign_forks(philos, forks, print_mutex);
 }
+

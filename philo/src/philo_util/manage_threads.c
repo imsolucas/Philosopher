@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 21:53:45 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/06 17:31:04 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/07 12:40:54 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	create_threads(t_philo *philo, pthread_t *threads)
 void	manage_threads(t_philo *philo)
 {
 	pthread_t	*threads;
-	pthread_t	monitor_threads;
+	// pthread_t	monitor_threads;
 	size_t		i;
 
 	i = 0;
@@ -38,9 +38,9 @@ void	manage_threads(t_philo *philo)
 		pthread_exit(NULL);
 	}
 	philo->table->threads = threads;
-	pthread_create(&monitor_threads, NULL, monitor_thread, philo);
+	// pthread_create(&monitor_threads, NULL, monitor_thread, philo);
 	create_threads(philo, threads);
-	pthread_join(monitor_threads, NULL);
+	// pthread_join(monitor_threads, NULL);
 	while (i < (size_t)philo->table->num_of_philos)
 	{
 		pthread_join(threads[i], NULL);

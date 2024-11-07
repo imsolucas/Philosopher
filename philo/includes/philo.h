@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/06 17:30:52 by codespace        ###   ########.fr       */
+/*   Updated: 2024/11/07 12:49:11 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void				precise_sleep(int ms);
 void				print_status(t_philo *philo, char *status);
 void				clean_up_tables(t_philo *philos, t_table *table);
 void				init_mutexes(t_philo *philos, pthread_mutex_t *forks,
-						pthread_mutex_t print_mutex);
+						pthread_mutex_t *print_mutex);
 void				assign_forks(t_philo *philos, pthread_mutex_t *forks,
-						pthread_mutex_t print_mutex);
+						pthread_mutex_t *print_mutex);
 t_table				*alloc_table(void);
 void				init_table_values(t_table *table, int argc, char **argv);
 

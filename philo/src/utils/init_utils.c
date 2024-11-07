@@ -6,41 +6,41 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 00:11:48 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 00:38:04 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/07 12:48:16 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 // init_utils.c
-void	init_mutexes(t_philo *philos, pthread_mutex_t *forks,
-		pthread_mutex_t print_mutex)
+void    init_mutexes(t_philo *philos, pthread_mutex_t *forks,
+        pthread_mutex_t *print_mutex)  // Change to pointer
 {
-	size_t	i;
+    size_t  i;
 
-	i = 0;
-	pthread_mutex_init(&print_mutex, NULL);
-	while (i < (size_t)philos[0].table->num_of_philos)
-	{
-		pthread_mutex_init(&forks[i], NULL);
-		i++;
-	}
+    i = 0;
+    pthread_mutex_init(print_mutex, NULL);  // Initialize the pointed-to mutex
+    while (i < (size_t)philos[0].table->num_of_philos)
+    {
+        pthread_mutex_init(&forks[i], NULL);
+        i++;
+    }
 }
 
-void	assign_forks(t_philo *philos, pthread_mutex_t *forks,
-		pthread_mutex_t print_mutex)
+void    assign_forks(t_philo *philos, pthread_mutex_t *forks,
+        pthread_mutex_t *print_mutex)  // Change to pointer
 {
-	size_t	i;
+    size_t  i;
 
-	i = 0;
-	while (i < (size_t)philos->table->num_of_philos)
-	{
-		philos[i].left_fork = &forks[i];
-		philos[i].right_fork = &forks[(i + 1) % philos->table->num_of_philos];
-		philos[i].table->print_mutex = &print_mutex;
-		philos[i].forks = forks;
-		i++;
-	}
+    i = 0;
+    while (i < (size_t)philos->table->num_of_philos)
+    {
+        philos[i].left_fork = &forks[i];
+        philos[i].right_fork = &forks[(i + 1) % philos->table->num_of_philos];
+        philos[i].table->print_mutex = print_mutex;  // Assign the pointer directly
+        philos[i].forks = forks;
+        i++;
+    }
 }
 
 void	init_table_values(t_table *table, int argc, char **argv)
