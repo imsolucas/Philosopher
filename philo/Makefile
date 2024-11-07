@@ -6,13 +6,13 @@
 #    By: geibo <geibo@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 06:55:38 by codespace         #+#    #+#              #
-#    Updated: 2024/11/07 12:53:17 by geibo            ###   ########.fr        #
+#    Updated: 2024/11/07 13:55:58 by geibo            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread -O2 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -pthread -O2 -fsanitize=thread
 INCLUDES = -Iincludes
 
 # Source files
@@ -22,7 +22,7 @@ UTILS_DIR = utils
 LIBFT_DIR = libft
 PHILO_UTIL = philo_util
 SRCS_FILES = $(addprefix $(MAIN_DIR)/, main.c) \
-			 $(addprefix $(UTILS_DIR)/, arg_check.c free.c init.c init_utils.c print_status.c time.c) \
+			 $(addprefix $(UTILS_DIR)/, arg_check.c free.c init.c init_utils.c print_status.c time.c init_philos.c init_sitting.c) \
 			 $(addprefix $(LIBFT_DIR)/, ft_atoi.c ft_strcmp.c) \
 			 $(addprefix $(PHILO_UTIL)/, fork.c handle_eat.c handle_sleep.c manage_threads.c monitor_threads.c philo_routine.c)
 

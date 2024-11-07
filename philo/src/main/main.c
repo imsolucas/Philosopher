@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 16:39:27 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 00:48:58 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/07 13:58:36 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	main(int argc, char **argv)
 
 	arg_check(argc);
 	table = set_up_table(argc, argv);
-	if (table->num_of_philos < 1 || table->num_of_philos > 200) {
-        printf("Error: Number of philosophers must be between 1 and 200\n");
+	if (table->num_of_philos < 1 || table->num_of_philos > 200)
+	{
+		printf("Error: Number of philosophers must be between 1 and 200\n");
 		free(table->someone_died);
 		free(table);
-        return 1;
-    }
+		return (1);
+	}
 	if (!table)
 		return (1);
 	philos = init_philo(table);

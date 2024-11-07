@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 21:16:12 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 12:48:37 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/07 13:54:56 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,48 +53,3 @@ t_table	*set_up_table(int argc, char **argv)
 	*table->someone_died = false;
 	return (table);
 }
-
-t_philo	*init_philo(t_table *table)
-{
-	t_philo	*philos;
-	size_t	i;
-
-	philos = malloc(sizeof(t_philo) * table->num_of_philos);
-	if (!philos)
-	{
-		printf("Error: malloc failed\n");
-		free(table);
-		exit(-1);
-	}
-	i = 0;
-	while (i < (size_t)table->num_of_philos)
-	{
-		philos[i].id = i + 1;
-		philos[i].meals_eaten = 0;
-		philos[i].last_meal_time = get_time();
-		philos[i].table = table;
-		i++;
-	}
-	return (philos);
-}
-
-void    sitting(t_philo *philos)
-{
-    pthread_mutex_t  *forks;
-    pthread_mutex_t  *print_mutex;  // Change to pointer
-
-    forks = malloc(sizeof(pthread_mutex_t) * philos->table->num_of_philos);
-    print_mutex = malloc(sizeof(pthread_mutex_t));  // Allocate on heap
-    if (!forks || !print_mutex)
-    {
-        printf("Error: malloc failed\n");
-        free(forks);
-        free(print_mutex);
-        free(philos[0].table);
-        free(philos);
-        exit(-1);
-    }
-    init_mutexes(philos, forks, print_mutex);
-    assign_forks(philos, forks, print_mutex);
-}
-

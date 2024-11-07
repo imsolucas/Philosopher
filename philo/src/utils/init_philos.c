@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_status.c                                     :+:      :+:    :+:   */
+/*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/06 22:39:36 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 13:58:25 by geibo            ###   ########.fr       */
+/*   Created: 2024/11/07 13:54:07 by geibo             #+#    #+#             */
+/*   Updated: 2024/11/07 13:54:14 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_status(t_philo *philo, char *status)
+t_philo	*init_philo(t_table *table)
 {
-	pthread_mutex_lock(philo->table->print_mutex);
-	if (!*philo->table->someone_died)
+	t_philo	*philos;
+	size_t	i;
+
+	philos = malloc(sizeof(t_philo) * table->num_of_philos);
+	if (!philos)
 	{
-		printf("%lld %d %s\n", get_time() - ((philo->table->start_time.tv_sec
-					* 1000) + (philo->table->start_time.tv_usec / 1000)),
-			philo->id, status);
+		printf("Error: malloc failed\n");
+		free(table);
+		exit(-1);
 	}
-	pthread_mutex_unlock(philo->table->print_mutex);
+	i = 0;
+	while (i < (size_t)table->num_of_philos)
+	{
+		philos[i].id = i + 1;
+		philos[i].meals_eaten = 0;
+		philos[i].last_meal_time = get_time();
+		philos[i].table = table;
+		i++;
+	}
+	return (philos);
 }

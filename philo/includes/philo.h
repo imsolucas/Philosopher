@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/07 12:49:11 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/07 13:58:14 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_table
 	pthread_mutex_t	*print_mutex;
 	bool			*someone_died;
 	struct timeval	start_time;
-	pthread_t	*threads;
+	pthread_t		*threads;
 }					t_table;
 
 typedef struct s_philo
@@ -59,8 +59,6 @@ void				sitting(t_philo *philos);
 void				precise_sleep(int ms);
 void				print_status(t_philo *philo, char *status);
 void				clean_up_tables(t_philo *philos, t_table *table);
-void				init_mutexes(t_philo *philos, pthread_mutex_t *forks,
-						pthread_mutex_t *print_mutex);
 void				assign_forks(t_philo *philos, pthread_mutex_t *forks,
 						pthread_mutex_t *print_mutex);
 t_table				*alloc_table(void);
