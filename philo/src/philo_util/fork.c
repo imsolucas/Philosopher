@@ -6,13 +6,13 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:50:44 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 09:33:04 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:09:37 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	grab_forks(t_philo *philo)
+bool	grab_forks(t_philo *philo)
 {
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*second_fork;
@@ -35,8 +35,9 @@ void	grab_forks(t_philo *philo)
 	{
 		pthread_mutex_unlock(first_fork);
 		pthread_mutex_unlock(second_fork);
-		pthread_exit(0);
+		return (false);
 	}
+	return (true);
 }
 
 void	release_forks(t_philo *philo)

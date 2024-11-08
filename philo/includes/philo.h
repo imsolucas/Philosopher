@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 09:38:28 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:09:50 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void				handle_sleep(t_philo *philo);
 void				handle_think(t_philo *philo);
 void				handle_death(t_philo *philo);
 void				handle_eat(t_philo *philo);
-void				grab_forks(t_philo *philo);
+bool				grab_forks(t_philo *philo);
 void				release_forks(t_philo *philo);
 void				monitor_thread(void *arg);
 long long			get_elapsed_time(struct timeval start);

@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 23:01:00 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 09:18:17 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:09:06 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	handle_death(t_philo *philo)
 	if (time_to_sleep > time_to_die)
 	{
 		print_status(philo, "died");
-		pthread_exit(0);
+		return ;
 	}
 }
