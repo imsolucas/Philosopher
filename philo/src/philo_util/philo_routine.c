@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:00:49 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 04:21:50 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 09:18:33 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static bool	handle_single_philo(t_philo *philo)
 	if (philo->table->num_of_philos == 1)
 	{
 		print_status(philo, "has taken a fork");
-		// usleep(philo->table->time_to_die * 1000);
 		return (true);
 	}
 	return (false);

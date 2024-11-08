@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 16:58:39 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 02:46:54 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 09:38:28 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ typedef struct s_philo
 	pthread_mutex_t	*forks;
 	t_table			*table;
 }					t_philo;
+
+typedef struct s_mutex_set
+{
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*print_mutex;
+	pthread_mutex_t	*last_meal_mutex;
+	pthread_mutex_t	*meals_eaten_mutex;
+}					t_mutex_set;
 
 // libft
 int					ft_atoi(const char *str);

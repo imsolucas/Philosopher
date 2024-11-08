@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 23:01:00 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 02:21:43 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 09:18:17 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	handle_sleep(t_philo *philo)
 	long long	sleep_die_time;
 	long long	sleep_duration;
 	long long	current_time;
-	
+
 	current_time = get_elapsed_time(philo->table->start_time);
 	sleep_end_time = current_time + philo->table->time_to_sleep;
 	sleep_die_time = current_time + philo->table->time_to_die;
