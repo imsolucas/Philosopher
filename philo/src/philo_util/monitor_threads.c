@@ -6,26 +6,35 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 23:55:47 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 09:27:05 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 16:24:15 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static bool	check_philo_death(t_philo *philo, size_t i)
+static bool	check_philo_death(t_philo *philo)
 {
-	long long	last_meal_time;
-	long long	time_since_last_meal;
+	struct timeval	start_time;
+	long long		last_meal_time;
+	long long		i;
+	long long		elapsed_time;
+	long long		time_since_last_meal;
 
-	pthread_mutex_lock(&philo[0].table->last_meal_mutex[i]);
-	last_meal_time = philo[i].last_meal_time;
-	pthread_mutex_unlock(&philo[0].table->last_meal_mutex[i]);
-	time_since_last_meal = get_elapsed_time(philo[0].table->start_time)
-		- last_meal_time;
-	if (time_since_last_meal > philo[0].table->time_to_die)
+	start_time = philo[0].table->start_time;
+	i = 0;
+	while (i < (size_t)philo[0].table->num_of_philos)
 	{
-		print_status(&philo[i], "died");
-		return (true);
+		pthread_mutex_lock(&philo[0].table->last_meal_mutex[i]);
+		last_meal_time = philo[i].last_meal_time;
+		pthread_mutex_unlock(&philo[0].table->last_meal_mutex[i]);
+		elapsed_time = get_elapsed_time(start_time);
+		time_since_last_meal = (elapsed_time - last_meal_time);
+		if (time_since_last_meal > philo[0].table->time_to_die)
+		{
+			print_status(&philo[i], "died");
+			return (true);
+		}
+		i++;
 	}
 	return (false);
 }
@@ -60,23 +69,18 @@ static void	handle_all_meals_eaten(t_philo *philo)
 
 static bool	monitor_philos(t_philo *philo)
 {
-	size_t	i;
-
-	i = 0;
 	if (philo[0].table->num_of_philos == 1)
 		return (true);
-	while (i < (size_t)philo[0].table->num_of_philos)
-	{
-		if (check_philo_death(philo, i))
-			return (true);
-		i++;
-	}
 	if (check_all_meals_eaten(philo))
 	{
 		handle_all_meals_eaten(philo);
 		return (true);
 	}
 	return (false);
+}
+
+static int	check_philo_last_meal_time(t_philo *philo)
+{
 }
 
 void	monitor_thread(void *arg)
@@ -86,6 +90,8 @@ void	monitor_thread(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
+		if (check_philo_death(philo))
+			return ;
 		if (monitor_philos(philo))
 			return ;
 		usleep(50);
