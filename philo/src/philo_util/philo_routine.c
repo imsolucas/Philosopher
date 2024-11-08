@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:00:49 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 13:48:39 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 14:11:55 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ static bool	handle_single_philo(t_philo *philo)
 	return (false);
 }
 
-static void	philo_actions(t_philo *philo)
+static bool	philo_actions(t_philo *philo)
 {
-	grab_forks(philo);
+	if (grab_forks(philo) == false)
+		return (false);
 	handle_eat(philo);
 	release_forks(philo);
 	handle_sleep(philo);
 	handle_death(philo);
 	handle_think(philo);
+	return (true);
 }
 
 void	*philo_routine(void *arg)
@@ -55,6 +57,9 @@ void	*philo_routine(void *arg)
 	if (philo->id % 2 == 0)
 		precise_sleep(100);
 	while (1)
-		philo_actions(philo);
+	{
+		if (philo_actions(philo) == false)
+			return (NULL);
+	}
 	return (NULL);
 }
