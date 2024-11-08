@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 21:53:45 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 00:28:03 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 13:58:40 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	manage_threads(t_philo *philo)
 	if (!threads)
 	{
 		printf("Error: malloc failed\n");
-		pthread_exit(NULL);
+		return ;
 	}
 	philo->table->threads = threads;
 	gettimeofday(&philo->table->start_time, NULL);

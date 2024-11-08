@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 23:01:00 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 09:18:17 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 13:57:48 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_think(t_philo *philo)
 	print_status(philo, "is thinking");
 }
 
-void	handle_death(t_philo *philo)
+void	*handle_death(t_philo *philo)
 {
 	long long	time_to_sleep;
 	long long	time_to_die;
@@ -50,6 +50,7 @@ void	handle_death(t_philo *philo)
 	if (time_to_sleep > time_to_die)
 	{
 		print_status(philo, "died");
-		pthread_exit(0);
+		return (NULL);
 	}
+	return (NULL);
 }

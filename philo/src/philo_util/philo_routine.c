@@ -6,7 +6,7 @@
 /*   By: geibo <geibo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 22:00:49 by geibo             #+#    #+#             */
-/*   Updated: 2024/11/08 09:18:33 by geibo            ###   ########.fr       */
+/*   Updated: 2024/11/08 13:48:39 by geibo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static bool	handle_single_philo(t_philo *philo)
 	if (philo->table->num_of_philos == 1)
 	{
 		print_status(philo, "has taken a fork");
+		print_status(philo, "died");
 		return (true);
 	}
 	return (false);
@@ -50,7 +51,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (handle_single_philo(philo))
-		pthread_exit(0);
+		return (NULL);
 	if (philo->id % 2 == 0)
 		precise_sleep(100);
 	while (1)
